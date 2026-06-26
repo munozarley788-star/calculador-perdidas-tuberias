@@ -6,7 +6,7 @@ st.set_page_config(page_title="Calculador de Pérdidas Hidráulicas", layout="wi
 
 st.title("🧮 Calculador Profesional de Pérdidas de Carga en Tuberías")
 st.markdown("Diseño de rutas de tubería, selección de materiales y análisis de accesorios K.")
-st.hr()
+st.divider()
 
 # Crear dos columnas principales en la interfaz (Izquierda: Entradas | Derecha: Resultados)
 col_izq, col_der = st.columns([1, 1])
@@ -20,19 +20,19 @@ with col_izq:
     viscosidad = st.number_input("Viscosidad dinámica (Pa·s):", min_value=0.0001, value=0.001002, format="%.6f", help="Agua a 20°C es aprox. 0.001002")
     caudal = st.number_input("Caudal de operación (m³/h):", min_value=0.1, value=45.0, step=1.0)
     
-    st.hr()
+    st.divider()
     
     # Sección B: Datos de la Tubería
     st.subheader("➿ Geometría de la Línea Recta")
     materiales_disponibles = list(eng.RUGOSIDAD_MATERIALES.keys())
-    material_seleccionado = st.selectbox("Seleccione el Material de la Tubería:", opciones=materiales_disponibles, format_func=lambda x: x.replace("_", " ").title())
+    material_seleccionado = st.selectbox("Seleccione el Material de la Tubería:", options=materiales_disponibles, format_func=lambda x: x.replace("_", " ").title())
     
     diametro_int = st.number_input("Diámetro Interno Real de la Tubería (mm):", min_value=1.0, value=102.26, step=1.0, help="Para 4\" Sch 40S use 102.26")
     longitud_recta = st.number_input("Longitud Total de Tubería Recta (metros):", min_value=0.0, value=35.0, step=5.0)
     
-    st.hr()
+    st.divider()
     
-    # Sección C: Selección de Accesorios Estántares (K)
+    # Sección C: Selección de Accesorios Estándares (K)
     st.subheader("🔧 Inventario de Accesorios en la Ruta")
     accesorios_seleccionados = {}
     
@@ -44,7 +44,7 @@ with col_izq:
             if cantidad > 0:
                 accesorios_seleccionados[acc_key] = cantidad
 
-    st.hr()
+    st.divider()
     
     # Sección D: Transiciones Dinámicas
     st.subheader("📐 Reducciones / Ampliaciones Especiales")
@@ -76,7 +76,7 @@ with col_der:
     kpi2.metric("Reynolds", f"{res['reynolds']}")
     kpi3.metric("Régimen", f"{res['regimen_flujo']}")
     
-    st.hr()
+    st.divider()
     
     # Resultados de Presión y Energía
     st.subheader("💥 Pérdidas de Energía y Caída de Presión")
@@ -89,7 +89,7 @@ with col_der:
     st.markdown(f"**Pérdidas Menores (Accesorios y cambios de sección):** {res['perdidas_menores_mcf']} mcf (Suma K Global = {res['sumatoria_k_global']})")
     st.markdown(f"**Pérdida Total de Altura (H):** {res['perdida_total_mcf']} metros de columna de fluido")
     
-    st.hr()
+    st.divider()
     
     # Mostrar tabla detallada de los accesorios que están aportando pérdidas
     if len(res['reporte_accesorios']) > 0:
