@@ -73,7 +73,7 @@ with col_der:
     # Desplegar Tarjetas de Información Rápida (Kpis)
     kpi1, kpi2, kpi3 = st.columns(3)
     kpi1.metric("Velocidad", f"{res['velocidad_m_s']} m/s")
-    kpi2.metric("Reynolds", f"{res['reynolds']}")
+    kpi2.metric("Reynolds", f"{res['reynolds']:.2e}")
     kpi3.metric("Régimen", f"{res['regimen_flujo']}")
     
     st.divider()
